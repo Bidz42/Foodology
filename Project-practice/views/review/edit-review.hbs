@@ -1,0 +1,17 @@
+<h2>Edit a review!</h2>
+
+<form action="/review/{{reviews._id}}/edit" method="POST">
+
+    <label for="user"> User:</label>
+    <input type="text" name="user" value="{{reviews.user}}">
+<br>
+    <label for="comment"> Comment:</label>
+    <input type="text" name="comment" value="{{reviews.comment}}">
+<br>
+    <label for="stars"> Stars:</label>
+    <input type="text" name="stars" value="{{reviews.stars}}">
+<br>
+    <button type="submit">Edit!</button>
+<br>
+    <a href="/review/reviews">Back to the reviews?</a>
+</form>

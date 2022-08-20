@@ -1,0 +1,33 @@
+const isLoggedIn = (req, res, next) => {
+    if (req.session.user) {
+      next();
+    }
+    else {
+      res.redirect("/auth/login");
+    }
+    
+};
+
+const isLoggedOut = (req, res, next) => {
+    if (!req.session.user) {
+      next();
+    }
+
+    else {
+      res.redirect("/");
+    }
+    
+};
+
+const isOwner = (req, res, next) => {
+  if(!req.session.currentUser._id === req.params.roomId){
+   res.redirect('/')
+  }
+  next()
+};
+
+module.exports = {
+    isLoggedIn,
+    isLoggedOut, 
+    isOwner
+};
