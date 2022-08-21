@@ -35,19 +35,20 @@ router.post("/create", isLoggedIn, (req, res) => {
 router.get("/:restaurantId", (req, res) => {
   const  _id = req.session?.currentUser?._id; 
   const { restaurantId } = req.params;
-  Restaurant.findOne({id: restaurantId})
+  Restaurant.findById(restaurantId)
     .populate("owner reviews") 
     .populate({ 
       path: 'reviews',
       populate: {
         path: "user", 
         model: "User",
-      } 
+      }
     })
     .then(restaurant => {
         const loggedInNavigation = req.session.hasOwnProperty('currentUser'); 
-        const isNotOwner = _id !== restaurant.owner._id.toString() && req.session.hasOwnProperty('currentUser');
-        res.render('restaurant/restaurant-details', { restaurant, isNotOwner, loggedInNavigation })
+        const isOwner = _id === restaurant.owner._id.toString() && req.session.hasOwnProperty('currentUser');
+        const isNotOwner = !isOwner;
+        res.render('restaurant/restaurant-details', { restaurant, isNotOwner, isOwner, loggedInNavigation })
     })
     .catch(err => console.error(err))
 });
@@ -58,7 +59,7 @@ router.get("/edit/:restaurantId", isLoggedIn, (req, res) => {
   res.render('restaurant/edit-restaurant', {loggedInNavigation})
 });
 
-router.post("/edit/:roomId", isOwner, (req, res) => {
+router.post("/edit/:restaurantId", isOwner, (req, res) => {
   const { restaurantId } = req.params;
   const restaurantUpdate = req.body;
 
@@ -68,25 +69,11 @@ router.post("/edit/:roomId", isOwner, (req, res) => {
             return Restaurant.updateOne({name: restaurantUpdate.name, cuisine: restaurantUpdateInfo.cuisine})
       })
       .then(() => res.redirect('/restaurant/restaurants'))
-  }
-  if (restaurantUpdate.name === ''){
-    Restaurant.findById(restaurantId)
-      .then(restaurants => {
-        return Restaurant.updateOne({cuisine: restaurantUpdate.cuisine, imageUrl: restaurantUpdateInfo.imageUrl})
-      })
-      .then(() => res.redirect('/restaurant/restaurants'))
-  }
-  if (restaurantUpdate.cuisine === ''){
-    Restaurant.findById(restaurantId)
-      .then(restaurants => {
-        return Restaurant.updateOne({name: restaurantUpdate.name, imageUrl: restaurantUpdateInfo.imageUrl})
-      })
-      .then(() => res.redirect('/restaurant/restaurants'))
-  }
-  else{
+  } else 
+  {
     Restaurant.findByIdAndUpdate(restaurantId, restaurantUpdate, {new: true})
       .then(() => {
-        res.redirect('/restaurant/restaurants');
+        res.redirect('/restaurant/list');
       })
       .catch(err => console.error(err))
   }
@@ -95,8 +82,8 @@ router.post("/edit/:roomId", isOwner, (req, res) => {
 //delete a restaurant
 router.post("/delete/:restaurantId", isOwner, (req, res) => {
   const { restaurantId } = req.params;
-  Room.findByIdAndDelete(restaurantId)
-    .then(() => res.redirect('/restaurant/restaurants'))
+  Restaurant.findByIdAndDelete(restaurantId)
+    .then(() => res.redirect('/restaurant/list'))
     .catch(err => console.error(err))
 });
 
