@@ -20,7 +20,7 @@ const isLoggedOut = (req, res, next) => {
 };
 
 const isOwner = (req, res, next) => {
-  if(!req.session.currentUser._id === req.params.roomId){
+  if(!req.session.currentUser._id === req.params.restaurantId){
    res.redirect('/')
   }
   next()

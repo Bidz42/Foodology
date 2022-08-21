@@ -22,7 +22,6 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 // Middleware configuration
 module.exports = (app) => {
-  //mongo sess
   app.use(
     session({
       secret: process.env.SESS_SECRET,
@@ -32,8 +31,8 @@ module.exports = (app) => {
         maxAge: 1000 * 60 * 60 * 24, // 24h
       },
       store: new MongoStore({
-        mongoUrl: 'mongodb://localhost/Project-2',
-        ttl: 60 * 60 * 24 // 60sec * 60min * 24h => 1 day      
+        mongoUrl: 'mongodb://localhost/Project-practice',
+        ttl: 60 * 60 * 24       
       })
     })
   );

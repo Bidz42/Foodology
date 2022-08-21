@@ -12,6 +12,10 @@ const restaurantSchema = new Schema({
         type: String,
         required: [true, "Please select a cuisine"]
     },
+    image: {
+        type: String,
+        required: [true, "Please add an image"]
+    },
     reviews: [{
         type: Schema.Types.ObjectId, ref: "Review"
     }]}

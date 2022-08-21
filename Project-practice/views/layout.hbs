@@ -9,12 +9,50 @@
       <link rel="stylesheet" href="/stylesheets/style.css" />
    </head>
    
-   <div class="topnav">
-      <a class="active" href="/">Home</a>
-      <a href="/login">Login</a>
-      <a href="/signup">Signup</a>
-      <a href="/logout">Logout</a>
-   </div>
+   {{#if loggedInNavigation}}
+      <nav>
+         <ul>
+            <li><a href="/">Home</a></li>
+              <li>
+                  <form method="post" action="/auth/logout">
+                     <button type="submit">Logout</button>
+                  </form>
+              </li>
+         </ul>
+      </nav>
+        <li>
+              <a href="/restaurant/create">Create a restaurant!</a>
+       </li><br>
+
+       <li>
+              <a href="/restaurant/restaurants">List of restaurants!</a>
+       </li><br>
+
+       <li>
+              <a href="/restaurant/own-restaurants">View your restaurants!</a>
+       </li><br>
+
+
+       <li>
+              <a href="/review/create">Create a review!</a>
+       </li><br>
+
+       <li>
+              <a href="/review/own-reviews">View your reviews!</a>
+       </li><br>
+
+       <li>
+              <a href="/review/reviews">List of reviews!</a>
+       </li>
+      {{else}}
+      <nav>
+         <ul>
+            <li><a href="/restaurant/restaurants">View Restaurants</a></li>
+            <li><a href="/auth/signup">Signup</a></li>
+             <li><a href="/auth/login">Login</a></li>
+         </ul>
+      </nav>
+      {{/if}}
 
    <body>
 
