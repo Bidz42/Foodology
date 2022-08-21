@@ -1,5 +1,5 @@
 const isLoggedIn = (req, res, next) => {
-    if (req.session.user) {
+    if (req.session.currentUser) {
       next();
     }
     else {
@@ -9,7 +9,7 @@ const isLoggedIn = (req, res, next) => {
 };
 
 const isLoggedOut = (req, res, next) => {
-    if (!req.session.user) {
+    if (!req.session.currentUser) {
       next();
     }
 

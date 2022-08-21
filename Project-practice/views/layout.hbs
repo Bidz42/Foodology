@@ -12,7 +12,7 @@
    {{#if loggedInNavigation}}
       <nav>
          <ul>
-            <li><a href="/">Home</a></li>
+            <li><a href="/auth/profile">Profile</a></li>
               <li>
                   <form method="post" action="/auth/logout">
                      <button type="submit">Logout</button>
@@ -20,12 +20,13 @@
               </li>
          </ul>
       </nav>
+        <div>
         <li>
               <a href="/restaurant/create">Create a restaurant!</a>
        </li><br>
 
        <li>
-              <a href="/restaurant/restaurants">List of restaurants!</a>
+              <a href="/restaurant/list">List of restaurants!</a>
        </li><br>
 
        <li>
@@ -44,6 +45,7 @@
        <li>
               <a href="/review/reviews">List of reviews!</a>
        </li>
+       </div>
       {{else}}
       <nav>
          <ul>

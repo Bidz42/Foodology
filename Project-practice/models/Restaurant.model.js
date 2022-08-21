@@ -1,25 +1,17 @@
 const { Schema, model } = require("mongoose");
 
-const restaurantSchema = new Schema({
-    user: { 
-        type: Schema.Types.ObjectId, ref: "User"
+const restaurantSchema = new Schema(
+    {
+    owner: { type: Schema.Types.ObjectId, ref: "User"},
+    name: { type: String, required: [true, "Must include name"]},
+    cuisine: { type: String, required: [true, "Please select a cuisine"]},
+    imageUrl: { type: String, required: [true, "Please add an image"]},
+    reviews: [{ type: Schema.Types.ObjectId, ref: "Review"}],
     },
-    name: {
-        type: String,
-        required: [true, "Must include name"]
+    {
+        timestamps: true,
     },
-    cuisine: {
-        type: String,
-        required: [true, "Please select a cuisine"]
-    },
-    image: {
-        type: String,
-        required: [true, "Please add an image"]
-    },
-    reviews: [{
-        type: Schema.Types.ObjectId, ref: "Review"
-    }]}
-    , {minimize: false});
+);
 
 const Restaurant = model('Restaurant', restaurantSchema);
 

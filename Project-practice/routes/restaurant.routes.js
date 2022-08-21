@@ -2,11 +2,12 @@ const express = require("express");
 const router = express.Router();
 const { isLoggedIn, isOwner } = require('../middleware/checker');
 const Restaurant = require('../models/Restaurant.model');
+const Review = require('../models/Review.model');
 
 //get all restaurants
 router.get("/list", (req, res) => {
   Restaurant.find()
-    .populate("user")
+    .populate("owner")
     .then(restaurants => {
       const loggedInNavigation = req.session.hasOwnProperty('currentUser');
       res.render('restaurant/restaurants', { restaurants, loggedInNavigation })
@@ -21,9 +22,9 @@ router.get("/create", isLoggedIn, (req, res) => {
 });
 
 router.post("/create", isLoggedIn, (req, res) => {
-  const { name, cuisine, stars } = req.body;
+  const { name, cuisine, imageUrl } = req.body;
   const { _id } = req.session.currentUser;
-  Restaurant.create({ user:_id , name, cuisine, reviews })
+  Restaurant.create({ name, cuisine, imageUrl, owner:_id })
     .then(newRestaurant =>{
           res.redirect('/restaurant/restaurants')
     })
@@ -35,7 +36,7 @@ router.get("/:restaurantId", (req, res) => {
   const  _id = req.session?.currentUser?._id; 
   const { restaurantId } = req.params;
   Restaurant.findOne({id: restaurantId})
-    .populate("user reviews") 
+    .populate("owner reviews") 
     .populate({ 
       path: 'reviews',
       populate: {
@@ -45,7 +46,7 @@ router.get("/:restaurantId", (req, res) => {
     })
     .then(restaurant => {
         const loggedInNavigation = req.session.hasOwnProperty('currentUser'); 
-        const isNotOwner = _id !== restaurant.user._id.toString() && req.session.hasOwnProperty('currentUser');
+        const isNotOwner = _id !== restaurant.owner._id.toString() && req.session.hasOwnProperty('currentUser');
         res.render('restaurant/restaurant-details', { restaurant, isNotOwner, loggedInNavigation })
     })
     .catch(err => console.error(err))
