@@ -8,8 +8,6 @@
 <img src="{{restaurant.imageUrl}}" alt="" width="300">
 
 {{#if isOwner}}
-  <button id="toggle-button">Update restaurant details</button>
-
   <form action="/restaurant/edit/{{restaurant._id}}/" method="post" id="edit-form" > 
     <label for="">Name</label>
     <input type="text" name="name" id="" value="{{restaurant.name}}">
@@ -35,7 +33,7 @@
   <h3>Reviews:</h3>
   {{#each restaurant.reviews}}
     <p> <b>{{ this.user.name }} said: </b> {{ this.comment }}  </p>
-    {{#if this.canBeChanged}}
+    {{#if canBeChanged}}
       <a href="/review/{{this._id}}">Edit</a>
       <form action="/review/{{this._id}}" method="POST">
         <button type="submit"> Delete </button>
@@ -49,7 +47,7 @@
 {{!-- this means that only if the user IS NOT the owner, this form will be shown --}}
 {{#if isNotOwner}}
   <h2>Add a review:</h2>
-  <form action="/review/create/{{room._id}}" method="POST">
+  <form action="/review/create/{{restaurant._id}}" method="POST">
     <textarea name="comment" id="" cols="10" rows="5"></textarea>
     <button type="submit">Add</button>
   </form>
