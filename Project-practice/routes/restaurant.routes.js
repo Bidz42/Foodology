@@ -10,17 +10,22 @@ router.get("/list", (req, res) => {
     .populate("owner")
     .then(restaurants => {
       const loggedInNavigation = req.session.hasOwnProperty('currentUser');
-      res.render('restaurant/restaurants', { restaurants, loggedInNavigation, isOwner })
+      res.render('restaurant/restaurants', { restaurants, loggedInNavigation })
       })
     .catch(err => console.error(err))
 });
 
-router.get("/own-list", (req, res) => {
+//get own list
+router.get("/own-list", isOwner, (req, res) => {
+  const loggedInNavigation = req.session.hasOwnProperty('currentUser');
   Restaurant.find()
     .populate("owner")
     .then(restaurants => {
-      const loggedInNavigation = req.session.hasOwnProperty('currentUser');
-      res.render('restaurant/restaurants', { restaurants, loggedInNavigation })
+      const  _id = req.session?.currentUser?._id; 
+      const ownRestaurants = restaurants.filter((e) => { 
+        return e.owner._id.toString() === _id
+      })
+      res.render('restaurant/own-restaurants', { loggedInNavigation, ownRestaurants })
       })
     .catch(err => console.error(err))
 });
@@ -55,14 +60,26 @@ router.get("/:restaurantId", isLoggedIn, (req, res) => {
       }
     })
     .then(restaurant => {
-        const loggedInNavigation = req.session.hasOwnProperty('currentUser'); 
-        const isOwner = _id === restaurant.owner._id.toString() && req.session.hasOwnProperty('currentUser');
-        const isNotOwner = !isOwner;
-        const canBeChanged = _id === restaurant.review.user._id.toString() && req.session.hasOwnProperty('currentUser');
-        res.render('restaurant/restaurant-details', { restaurant, isNotOwner, isOwner, loggedInNavigation, canBeChanged })
+      const loggedInNavigation = req.session.hasOwnProperty('currentUser');
+      const restaurantCopy = restaurant
+      const updatedReviews = restaurantCopy.reviews.map(review => {
+        if(review.user._id.toString() === _id) {return {
+          _id : review._id,
+          user : review.user,
+          comment : review.comment,
+          stars : review.stars,
+          canBeChanged: true,
+        }}
+        else{
+          return review
+        }
       })
-    .catch(err => console.error(err))
-});
+      const isOwner = _id === restaurant.owner._id.toString() && req.session.hasOwnProperty('currentUser');
+      const isNotOwner = !isOwner;
+      res.render('restaurant/restaurant-details', { restaurant, updatedReviews, isNotOwner, isOwner, loggedInNavigation, canBeChanged})
+    })
+    .catch(err => console.log(err))
+  });
 
 //edit a restaurant
 router.get("/edit/:restaurantId", isLoggedIn, (req, res) => {
@@ -77,7 +94,7 @@ router.post("/edit/:restaurantId", isOwner, (req, res) => {
   if(restaurantUpdate.imageUrl === ''){
     Restaurant.findById(restaurantId)
       .then(restaurants => {
-            return Restaurant.updateOne({name: restaurantUpdate.name, cuisine: restaurantUpdateInfo.cuisine})
+            return Restaurant.updateOne({name: restaurantUpdate.name, cuisine: restaurantUpdate.cuisine})
       })
       .then(() => res.redirect('/restaurant/list'))
   } else 

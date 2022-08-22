@@ -29,13 +29,14 @@
 {{/if}}
 
 {{!-- if there are reviews, show them, if not, forget about it 🙃 --}}
-{{#if restaurant.reviews}}
-  <h3>Reviews:</h3>
-  {{#each restaurant.reviews}}
+{{#if updatedReviews}}
+  <h3:</h3>
+  {{#each updatedReviews}}
     <p> <b>{{ this.user.name }} said: </b> {{ this.comment }}  </p>
+    <p> <b> Rating: {{ this.stars }} </p>
     {{#if canBeChanged}}
-      <a href="/review/{{this._id}}">Edit</a>
-      <form action="/review/{{this._id}}" method="POST">
+      <a href="/review/edit/{{this._id}}">Edit</a>
+      <form action="/review/delete/{{this._id}}" method="POST">
         <button type="submit"> Delete </button>
       </form>
     {{/if}}
