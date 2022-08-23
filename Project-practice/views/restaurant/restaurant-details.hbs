@@ -1,5 +1,5 @@
-<h1>Welcome to the details page of the {{ restaurant.name }}</h1>
-<p>This restaurant is posted by: <b> {{ restaurant.owner.name }} </b></p>
+<h1>Here is the {{ restaurant.name }}</h1>
+<p>This restaurant was posted by: <b> {{ restaurant.owner.name }} </b></p>
 <hr>
 <h3>Cuisine:</h3>
 <p> {{ restaurant.cuisine }}</p>
@@ -15,7 +15,7 @@
     <label for="">Cuisine</label>
     <input type="text" name="cuisine" id="" value="{{restaurant.cuisine}}">
 
-    <img src="{{restaurant.imageUrl}}" alt="" width="200">
+    <img src="" alt="" width="200">
     <label for="">Upload new image</label>
     <input type="text" name="imageUrl" id="" value="{{restaurant.imageUrl}}"> 
 
@@ -47,9 +47,17 @@
 {{!-- USER CAN NOT LEAVE REVIEWS ON THEIR OWN PROPERTIES --}}
 {{!-- this means that only if the user IS NOT the owner, this form will be shown --}}
 {{#if isNotOwner}}
-  <h2>Add a review:</h2>
+  <h2>Add a review and rating:</h2>
   <form action="/review/create/{{restaurant._id}}" method="POST">
-    <textarea name="comment" id="" cols="10" rows="5"></textarea>
+    <textarea name="comment" id="" cols="10" rows="5" required></textarea>
+    <select name="stars" id="stars" required>
+  <option value="" selected disabled hidden>Choose here</option>
+  <option value="1">1</option>
+  <option value="2">2</option>
+  <option value="3">3</option>
+  <option value="4">4</option>
+  <option value="5">5</option>
+</select>
     <button type="submit">Add</button>
   </form>
 {{/if}}
