@@ -5,43 +5,42 @@
 {{/if}}
 
 <! Google map Api >
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB64QKBW2LR_5xSwBX2voxlo0HpUEBYlzY&callback=initMap"
-         type="text/javascript"></script>
-         <style type="text/css">
-                #map {
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB64QKBW2LR_5xSwBX2voxlo0HpUEBYlzY&callback=initMap" type="text/javascript"></script>
+<style type="text/css">
+#map {
                         width: 500px;
                         height:500px;
+}
+</style>
+<script type="text/javascript">
+        x = navigator.geolocation;
+        x.getCurrentPosition(success, failure);
+        function success(position){
+                var myLat = position.coords.latitude;
+                var myLong = position.coords.longitude;
+                var coords = new google.maps.LatLng(myLat, myLong);
+                var mapOptions = {
+                        zoom : 11,
+                        center : coords,
+                        mapTypeId : google.maps.MapTypeId.ROADMAP  
                 }
-         </style>
-        <script type="text/javascript">
-                x = navigator.geolocation;
-                x.getCurrentPosition(success, failure);
-                function success(position){
-                        var myLat = position.coords.latitude;
-                        var myLong = position.coords.longitude;
-                        var coords = new google.maps.LatLng(myLat, myLong);
-                        var mapOptions = {
-                                zoom : 11,
-                                center : coords,
-                                mapTypeId : google.maps.MapTypeId.ROADMAP  
-                        }
-                        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-                        var marker = new google.maps.Marker({map:map, position:coords});
-                }
-                function failure(){}
-        </script>
+                var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+                var marker = new google.maps.Marker({map:map, position:coords});
+        }
+        function failure(){}
+</script>
 
 <div id="map"></div>
 
 <! Weather API> 
 <div class="container searchContainer">
-            <div class="search card card-body">
-                <h1>Get The Weather For a Location</h1>
-                <p class="lead">Enter Your Location</p>
-                <input type="text" id="searchUser" class="form-control" placeholder="Location">
-            </div>
-            <br>
-            <div id="profile"></div>
+        <div class="search card card-body">
+        <h1>Get The Weather For a Location</h1>
+        <p class="lead">Enter Your Location</p>
+        <input type="text" id="searchUser" class="form-control" placeholder="Location">
+        </div>
+        <br>
+        <div id="profile"></div>
 </div>
         <div class="container text-center mt-2">
             <button class="btn btn-primary" id="submit">Submit</button>
@@ -52,11 +51,8 @@
 class Fetch {
   async getCurrent(input) {
     const myKey = "3f03d2cbc90ff5b3c51fd81177325951";
-    const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${input}&appid=${myKey}&units=metric`
-    );
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${input}&appid=${myKey}&units=metric`);
     const data = await response.json();
-    console.log(data);
     return data;
   }
 }
@@ -70,15 +66,13 @@ class UI {
   populateUI(data) {
     this.uiContainer.innerHTML = `
         <div class="card mx-auto mt-5" style="width: 18rem;">
-            <div class="card-body justify-content-center">
-                <h5 class="card-title">${data.name}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Highs of ${data.main.temp_max}°C. Lows of ${data.main.temp_min}°C</h6>
-                <p class="card-text ">Weather conditions: ${data.weather[0].description}</p>
-                <p class="card-text ">Wind speeds of: ${data.wind.speed} metres/second</p>
-                <p class="card-text ">Clouds: ${data.clouds.all}%</p>
-
-                
-            </div>
+        <div class="card-body justify-content-center">
+        <h5 class="card-title">${data.name}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Highs of ${data.main.temp_max}°C. Lows of ${data.main.temp_min}°C</h6>
+        <p class="card-text ">Weather conditions: ${data.weather[0].description}</p>
+        <p class="card-text ">Wind speeds of: ${data.wind.speed} metres/second</p>
+        <p class="card-text ">Clouds: ${data.clouds.all}%</p>
+        </div>
         </div>
         `;
   }
@@ -121,14 +115,11 @@ window.addEventListener("DOMContentLoaded", () => {
 </script>
 
 <! Recipes Api>
- <div class="container">
-	<div class="row text-center">
-		<h3>
-			Feeling hungry?
-		</h3>
-		<h5>Get a random meal by clicking below</h5>
-		<button class="button-primary" id="get_meal">Get Meal 🍔</button>
-
+<div class="container">
+        <div class="row text-center">
+	<h3>Feeling hungry?</h3>
+	<h5>Get a random meal by clicking below</h5>
+	<button class="button-primary" id="get_meal">Get Meal 🍔</button>
 	</div>
 	<div id="meal" class="row meal"></div>
 </div>
@@ -147,45 +138,42 @@ get_meal_btn.addEventListener('click', () => {
 
 const createMeal = (meal) => {
 	const ingredients = [];
-	// Get all ingredients from the object. Up to 20
 	for(let i=1; i<=20; i++) {
 		if(meal[`strIngredient${i}`]) {
 			ingredients.push(`${meal[`strIngredient${i}`]} - ${meal[`strMeasure${i}`]}`)
 		} else {
-			// Stop if no more ingredients
-			break;
+		        break;
 		}
 	}
 	
-	const newInnerHTML = `
-		<div class="row">
-			<div class="columns five">
-				<img src="${meal.strMealThumb}" alt="Meal Image">
-				${meal.strCategory ? `<p><strong>Category:</strong> ${meal.strCategory}</p>` : ''}
-				${meal.strArea ? `<p><strong>Area:</strong> ${meal.strArea}</p>` : ''}
-				${meal.strTags ? `<p><strong>Tags:</strong> ${meal.strTags.split(',').join(', ')}</p>` : ''}
-				<h5>Ingredients:</h5>
-				<ul>
-					${ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
-				</ul>
-			</div>
-			<div class="columns seven">
-				<h4>${meal.strMeal}</h4>
-				<p>${meal.strInstructions}</p>
-			</div>
-		</div>
-		${meal.strYoutube ? `
-		<div class="row">
-			<h5>Video Recipe</h5>
-			<div class="videoWrapper">
-				<iframe width="420" height="315"
-				src="https://www.youtube.com/embed/${meal.strYoutube.slice(-11)}">
-				</iframe>
-			</div>
-		</div>` : ''}
+const newInnerHTML = `
+<div class="row">
+	<div class="columns five">
+		<img src="${meal.strMealThumb}" alt="Meal Image">
+		${meal.strCategory ? `<p><strong>Category:</strong> ${meal.strCategory}</p>` : ''}
+		${meal.strArea ? `<p><strong>Area:</strong> ${meal.strArea}</p>` : ''}
+		${meal.strTags ? `<p><strong>Tags:</strong> ${meal.strTags.split(',').join(', ')}</p>` : ''}
+		<h5>Ingredients:</h5>
+		<ul>
+		${ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
+		</ul>
+	</div>
+	<div class="columns seven">
+		<h4>${meal.strMeal}</h4>
+		<p>${meal.strInstructions}</p>
+	</div>
+</div>
+	${meal.strYoutube ? `
+	<div class="row">
+	<h5>Video Recipe</h5>
+	<div class="videoWrapper">
+	<iframe width="400" height="300"
+	src="https://www.youtube.com/embed/${meal.strYoutube.slice(-11)}">
+	</iframe>
+	</div>
+	</div>` : ''}
 	`;
 	
 	meal_container.innerHTML = newInnerHTML;
 }
-
 </script>
