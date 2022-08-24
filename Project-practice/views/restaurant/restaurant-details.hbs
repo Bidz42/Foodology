@@ -1,63 +1,145 @@
-<h1>Here is the {{ restaurant.name }}</h1>
-<p>This restaurant was posted by: <b> {{ restaurant.owner.name }} </b></p>
-<hr>
-<h3>Cuisine:</h3>
-<p> {{ restaurant.cuisine }}</p>
-<hr>
-<h3>Gallery:</h3>
-<img src="{{restaurant.imageUrl}}" alt="" width="500">
+<div class="container">
+  <div class="row">
+      <div class="col my-4">
+        <h1>{{ restaurant.name }}</h1>
+        <p style="font-size:20px;">This restaurant was posted by: <b> {{ restaurant.owner.name }} </b></p>
+        
+        <hr>
 
-{{#if isOwner}}
-  <form action="/restaurant/edit/{{restaurant._id}}/" method="post" id="edit-form" > 
-    <label for="">Name</label>
-    <input type="text" name="name" id="" value="{{restaurant.name}}">
+        <div class="row mt-5">
+          <div class="col ">
+            <h3 style="font-weight:bolder;">Cuisine:</h3>
+            <h5> {{ restaurant.cuisine }}</h5>
+          </div>
+        </div>
+        
+        <hr>
+        
+        <div class="row my-5">
+          <div class="col-6 d-flex flex-column align-items-center justify-content-center">
+            <h3 style="font-weight:bolder;">Gallery</h3>
+            <img src="{{restaurant.imageUrl}}" alt="" width="500" class="my-5">
+          </div>
 
-    <label for="">Cuisine</label>
-    <input type="text" name="cuisine" id="" value="{{restaurant.cuisine}}">
+        {{#if isOwner}}
+      </div>
+      <hr>
 
-    <img src="" alt="" width="200">
-    <label for="">Upload new image</label>
-    <input type="text" name="imageUrl" id="" value="{{restaurant.imageUrl}}"> 
+  </div>
 
-    <button type="submit">Save changes</button>
-  </form>
-  <br/>
+ <div class="row">
+      <div class="col">
+        <form action="/restaurant/edit/{{restaurant._id}}/" method="post" id="edit-form" > 
+         
+        <div class="row d-flex align-items-center justify-content-center">
+          <div class="col col-md-4 d-flex flex-column">
+            <label style="font-weight:bolder;" for="">Name</label>
+            <input style="font-weight:bolder; color:black;" type="text" name="name" id="" value="{{restaurant.name}}">
 
-  <form action="/restaurant/delete/{{restaurant._id}}" method="post">
-    <button type="submit">Delete this restaurant</button>
-  </form>
+            <label style="font-weight:bolder;" for="">Cuisine</label>
+            <input style="font-weight:bolder; color:black;" type="text" name="cuisine" id="" value="{{restaurant.cuisine}}">
+          </div>
+
+          <div class="col d-flex">
+          <img src="{{restaurant.imageUrl}}" alt="" width="150">
+
+            <div class="col d-flex flex-column m-3 m-md-5" >
+              <label style="font-weight:bolder;" for="">Upload new image</label>
+              <input style="font-weight:bolder; color:black;" type="text" name="imageUrl" id="" value="{{restaurant.imageUrl}}"> 
+            </div>
+
+          </div>
+        </div>
+        <br/>
+          
+      
+      <div class="row">
+        
+        <div class="col d-flex justify-content-between">
+          <button style="font-weight:bolder; color:black;" type="submit">Save changes</button>
+        </form>
+        
+          <form action="/restaurant/delete/{{restaurant._id}}" method="post">
+            <button style="font-weight:bolder; color:black;" type="submit">Delete this restaurant</button>
+          </form>
+        </div>
+      </div>
+      
+      </div>
 {{/if}}
 
-{{!-- if there are reviews, show them, if not, forget about it 🙃 --}}
-{{#if updatedReviews}}
 
-  {{#each updatedReviews}}
-    <p> <b>{{ this.user.name }} said: </b> {{ this.comment }}  </p>
-    <p> <b> Rating: {{ this.stars }} </p>
-    {{#if canBeChanged}}
-      <a href="/review/edit/{{this._id}}">Edit</a>
-      <form action="/review/delete/{{this._id}}" method="POST">
+  <div class="row mt-5 p-5">
+      <div class="col-7">
+        {{!-- if there are reviews, show them, if not, forget about it 🙃 --}}
+        {{#if restaurant.reviews}}
+        <h3 style="font-weight:bolder;" >Reviews:</h3>
+  {{#each restaurant.reviews}}
+        <p> <b>{{ this.user.name }} said: </b> {{ this.comment }}  </p>
+        <p>rating: {{this.stars}}</p>
+      {{#if canBeChanged}}
+        <a href="/review/{{this._id}}">Edit</a>
+        <form action="/review/{{this._id}}" method="POST">
         <button type="submit"> Delete </button>
-      </form>
-    {{/if}}
+        </form>
+        <hr>
+      {{/if}}
   {{/each}}
 {{/if}}
+      </div>
+    </div>
 
-<hr>
-{{!-- USER CAN NOT LEAVE REVIEWS ON THEIR OWN PROPERTIES --}}
-{{!-- this means that only if the user IS NOT the owner, this form will be shown --}}
-{{#if isNotOwner}}
-  <h2>Add a review and rating:</h2>
-  <form action="/review/create/{{restaurant._id}}" method="POST">
-    <textarea name="comment" id="" cols="10" rows="5" required></textarea>
-    <select name="stars" id="stars" required>
-  <option value="" selected disabled hidden>Choose here</option>
-  <option value="1">1</option>
-  <option value="2">2</option>
-  <option value="3">3</option>
-  <option value="4">4</option>
-  <option value="5">5</option>
-</select>
-    <button type="submit">Add</button>
-  </form>
-{{/if}}
+        {{!-- USER CAN NOT LEAVE REVIEWS ON THEIR OWN PROPERTIES --}}
+        {{!-- this means that only if the user IS NOT the owner, this form will be shown --}}
+ {{#if isNotOwner}}
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-12 text-center">
+      <h2 data-toggle="collapse" href="#collapse" role="button" aria-expanded="false" aria-controls="collapse" >Add a review</h2>
+    </div>
+  </div>
+
+  <div class="row collapse" id="collapse">
+
+    <div class="col-12 col-md-10">
+      <form action="/review/create/{{restaurant._id}}" method="POST">
+        <textarea name="comment" id="" class="form-control h-25 mb-3 " ></textarea>
+    </div>
+
+
+
+    <div class="col-12 col-md d-flex align-items-center justify-content-center ">
+
+      <select style="color:black" name="stars" id="stars" required>
+        <option value="" selected disabled hidden>Rating</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>  
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+
+    </div>
+
+    <div class="row">
+      <div class="col col-md-12 d-flex justify-content-center justify-content-md-start p-0">
+        <button class="btn  btn-block btn-dark text-uppercase" type="submit">Add</button>
+      </div>
+    </div>
+      
+      </form>
+      {{/if}}
+      
+  </div>
+
+</div>
+
+</div>
+
+<style>
+  *{
+    color:white;
+  }
+</style>

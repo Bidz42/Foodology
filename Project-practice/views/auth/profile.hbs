@@ -7,7 +7,7 @@
       {{/if}}
   	</div>
   </div>
-
+<br><br><br>
 	<div class="row">
 		<div class="col col-md-12 d-flex flex-column align-items-center justify-content-center">
 			<! Google map Api >
@@ -36,25 +36,32 @@
 									}
 									function failure(){}
 					</script>
-
+        <div style="font-size:20px; font-weight:bolder; color:white;"> You are here.</div>
 				<div id="map"></div>
 		</div>
 	</div>
-  
+  <br><br><br><br><br>
 	<div class="row mt-4 d-flex justify-content-center">
 		<div class="col-12 col-md-8">
         <! Weather API> 
-       <div class="container searchContainer">
-                <div class="search card card-body">
-                <h1>Get The Weather For a Location</h1>
-                <h4>Enter Your Location</h2>
+       <div>
+                <div>
+                <h1 style="color:white;">Get The Weather For a Location</h1>
+                <h4 style="color:white;">Where are you?</h2>
                 <input type="text" id="searchUser" class="form-control" placeholder="Location">
                 </div>
                 <br>
                 <div id="profile"></div>
         </div>
 			</div>
-
+<style>
+  .col {
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    align-items:center;
+  }
+</style>
 		
 		<div class="col col-md-1 d-flex align-items-center justify-content-center">
 					<div>
@@ -91,10 +98,10 @@
         }
         populateUI(data) {
         this.uiContainer.innerHTML = `
-                <div class="card mx-auto mt-5" style="width: 50rem;">
+                <div class="card mx-auto mt-5 bg-dark text-white" style="width: 50rem;">
                 <div class="card-body justify-content-center">
-                <h5 class="card-title">${data.name}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Highs of ${data.main.temp_max}°C. Lows of ${data.main.temp_min}°C</h6>
+                <h5 class="card-title align">${data.name}</h5>
+                <h6 class="card-subtitle mb-2">Highs of ${data.main.temp_max}°C. Lows of ${data.main.temp_min}°C</h6>
                 <p class="card-text ">Weather conditions: ${data.weather[0].description}</p>
                 <p class="card-text ">Wind speeds of: ${data.wind.speed} metres/second</p>
                 <p class="card-text ">Clouds: ${data.clouds.all}%</p>
@@ -148,19 +155,19 @@
         </div>
 		</div> --}}
 
-</div>
-<div class="row mt-4 d-flex justify-content-center align-items-center">
-		<div class="col-6 col-md-4">
-        <div class="container searchContainer">
-                <div class="search card card-body">
-                <h1>Feeling hungry?</h1>
-                <h4>Get a random meal by clicking below</h2>
-                <button class="button-primary" id="get_meal">Get Meal 🍔</button>
+<div class="row mt-4 ">
+		<div class="col d-flex flex-column">
+                <div class="text-center text-white ">
+									<h3 style="font-size:50px;">Feeling hungry?</h3>
+									<h5 style="font-size:25px;">Get a random meal by clicking below</h5>
+									<button class="btn btn-block btn-dark my-4" id="get_meal" style="font-size:30px;">Get Meal 🍔</button>
                 </div>
-                <br>
-                <div id="meal" class="row meal"></div>
+                
+								<div id="meal" class="d-flex flex-column justify-content-center align-items-center"></div>
         </div>
-			</div>
+	</div>
+
+</div>
 
         
 <script type="text/javascript">
@@ -184,27 +191,34 @@ const createMeal = (meal) => {
 	}
 	
 const newInnerHTML = `
-<div class="row">
-	<div class="columns5 five">
-		<img src="${meal.strMealThumb}" alt="Meal Image">
-		${meal.strCategory ? `<p><strong>Category:</strong> ${meal.strCategory}</p>` : ''}
-		${meal.strArea ? `<p><strong>Area:</strong> ${meal.strArea}</p>` : ''}
-		${meal.strTags ? `<p><strong>Tags:</strong> ${meal.strTags.split(',').join(', ')}</p>` : ''}
-		<h5>Ingredients:</h5>
-		<ul>
-		${ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
-		</ul>
+<div class="row d-flex flex-column justify-content-center text-white p-0">
+		<div class="col text-center p-3">
+				<h4 style="font-size:30px;">${meal.strMeal}</h4>
 	</div>
-	<div class="columns7 seven">
-		<h4>${meal.strMeal}</h4>
-		<p>${meal.strInstructions}</p>
+	 
+	<div class="col d-flex justify-content align-items-center p-1">
+		<img src="${meal.strMealThumb}" alt="Meal Image" class="img-thumbnail">
+		
+		<div style="font-size:20px; color:white;"> 
+			${meal.strCategory ? `<p><strong>Category:</strong> ${meal.strCategory}</p>` : ''}
+			${meal.strArea ? `<p><strong>Area:</strong> ${meal.strArea}</p>` : ''}
+			${meal.strTags ? `<p><strong>Tags:</strong> ${meal.strTags.split(',').join(', ')}</p>` : ''}
+			<h5>Ingredients:</h5>
+			<ul>
+			${ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
+			</ul>
+		</div>
 	</div>
-</div><br><br><br>
+	
+	<div class="col m-4">
+		<p style="font-size:15px;">${meal.strInstructions}</p>
+	</div>
+</div>
 	${meal.strYoutube ? `
 	<div class="row">
-	<h5>Video Recipe: </h5>
+	<h5>Video Recipe</h5>
 	<div class="videoWrapper">
-	<iframe width="800" height="400"
+	<iframe width="600" height="350"
 	src="https://www.youtube.com/embed/${meal.strYoutube.slice(-11)}">
 	</iframe>
 	</div>

@@ -1,8 +1,35 @@
-<h2>Restaurant details</h2>
+<div class="container">
+  <div class="row text-center">
+  <h2 id="title-gallery">List of your restaurants</h2>
+  </div>
 
-{{#each ownRestaurants}}
-<a href="/restaurant/{{this._id}}"><h4>{{this.name}}</h4></a>
-<p>Cuisine:{{this.cuisine}}</p><hr />
- <img src="{{this.imageUrl}}" alt="" width="300">
+  <div class="row">
+    {{#each ownRestaurants}}
 
-{{/each}}
+      <div class="col-12 col-md-12 p-5" >
+        <div class="cont">
+        <div class="card text-black text-center bg-light">
+          <img src="{{this.imageUrl}}" alt="" class="card-img-top">
+          <h3 class="card-title"> {{ this.name }}</h3> 
+          <h4 class="card-subtitle">Cuisine: {{ this.cuisine }}</h4>
+          <a href="/restaurant/{{this._id}}" class="btn mr-2"><i class="fas fa-link"></i> More Details</a>
+      </div>
+      </div>
+    </div>
+
+    {{/each}}
+
+    </div>
+    
+
+    <style>
+        .card{
+            width:60%;
+            justify-content: center;
+            align-items: center;
+        }
+        .cont{
+            padding-left: 300px;
+        }
+        
+    </style>

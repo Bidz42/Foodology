@@ -1,31 +1,49 @@
+<br><br><br><br><br>
 <div class="container mt-4">
   <form novalidate action="/restaurant/create" method="POST">
-    <h2>Create a restaurant!</h2>
+    <h2 style="font-size:30px; font-weight:bolder;" >Create a restaurant!</h2>
+<br><br>
+    <div class="row">
+      <div class="col">
+        <label style="font-size:20px;" for="name" class="form-label"> Name</label><br><br>
+        <input style=" height:100px;font-size:14pt;" id="name" type="text" name="name" class="form-control" placeholder="King's Landing Best Tavern" required/>
+      </div>
+    </div>
+<br><br>
+    <div class="row">
+      <div class="col">
+        <label style="font-size:20px;" for="cuisine" class="form-label"> Cuisine</label><br><br>
+    <input style=" height:100px;font-size:14pt;" id="cuisine" type="text" name="cuisine" class="form-control" placeholder="Only the worst wine" required/>
+      </div>
+    </div>
+<br><br>
 
     <div class="row">
       <div class="col">
-        <label for="name" class="form-label"> Name</label>
-        <input id="name" type="text" name="name" class="form-control" placeholder="King's Landing Best Tavern" required/>
+       <label style="font-size:20px;" for="image" class="form-label">Add Image</label><br><br>
+    <input style=" height:100px;font-size:14pt;" id="imageUrl" type="text" name="imageUrl" class="form-control" placeholder="Link Goes Here"/>
       </div>
-    </div>
+    </div><br><br>
+     {{!-- <div class="col">
+        <label for="image" class="form-label pt-2">Upload Image</label>
+        <input id="image" type="file" name="imageUrl" class="form-control-file" />
+      </div> --}}
 
-    <div class="row">
-      <div class="col">
-        <label for="cuisine" class="form-label"> Cuisine</label>
-    <input id="cuisine" type="text" name="cuisine" class="form-control" placeholder="Only the worst wine" required/>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="col">
-       <label for="image" class="form-label">Add Image</label>
-    <input id="imageUrl" type="text" name="imageUrl" class="form-control" placeholder="Link Goes Here"/>
-      </div>
-    </div>
+
     <div class="row ">
       <div class="col mt-2">
-        <button class="btn btn-sm btn-dark  text-uppercase fw-bold mb-2" type="submit">Create New Restaurant</button>
+        <button style="font-size:15px;" class="btn btn-sm btn-dark  text-uppercase fw-bold mb-2" type="submit">Create New Restaurant</button>
       </div>
     </div>
   </form>
 </div>
+
+<style>
+  .container{
+    color:white;
+    justify-content: center;
+    align-items: center;
+    transform-origin: ;
+  }
+</style>
