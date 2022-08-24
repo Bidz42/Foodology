@@ -1,21 +1,47 @@
-<div id="form">
-  <h2>Signup</h2>
 
-  <form action="/auth/signup" method="POST">
- 
-    <label> Name
-      <input type="text" name="name" placeholder="Jon Snow" required/>
-    </label>
- 
-    <label> Email
-      <input type="email" name="email" placeholder="JSnow@thewall.com" required/>
-    </label>
- 
-    <label> Password
-      <input type="password" name="password" placeholder="********" required/>
-    </label>
- 
-    <button type="submit">Create account</button>
- 
-  </form>
+<div class="container-fluid ps-md-0">
+  <div class="row g-0">
+    <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image-sign-up"></div>
+    <div class="col-md-8 col-lg-6">
+
+
+
+    <div class="login d-flex align-items-center">
+     <div class="container">
+          <div class="row">
+            <div class="col-md-9 col-lg-8 mx-auto">       
+              <h3 class="login-heading mb-4">Sign Up</h3>
+
+              <form novalidate action="/auth/signup" method="POST">
+
+                <div class="form-floating mb-3">
+                  <input type="text" name="name" class="form-control" id="floatingInput" placeholder="Jon Snow"  required>
+                  <label for="floatingInput">Name</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                  <input type="email" name="email" class="form-control" id="floatingInput" placeholder="JSnow@thewall.com" required>
+                  <label for="floatingInput">Email address</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                  <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="********" required>
+                  <label for="floatingPassword" >Password</label>
+                </div>
+
+                <div class="d-grid">
+                  <button class="btn btn-lg btn-dark btn-login text-uppercase fw-bold mb-2" type="submit">Sign in</button>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+
+

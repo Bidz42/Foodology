@@ -5,7 +5,7 @@
 <p> {{ restaurant.cuisine }}</p>
 <hr>
 <h3>Gallery:</h3>
-<img src="{{restaurant.imageUrl}}" alt="" width="300">
+<img src="{{restaurant.imageUrl}}" alt="" width="500">
 
 {{#if isOwner}}
   <form action="/restaurant/edit/{{restaurant._id}}/" method="post" id="edit-form" > 
@@ -30,7 +30,7 @@
 
 {{!-- if there are reviews, show them, if not, forget about it 🙃 --}}
 {{#if updatedReviews}}
-  <h3:</h3>
+
   {{#each updatedReviews}}
     <p> <b>{{ this.user.name }} said: </b> {{ this.comment }}  </p>
     <p> <b> Rating: {{ this.stars }} </p>

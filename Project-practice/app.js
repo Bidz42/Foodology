@@ -39,4 +39,6 @@ app.use("/review", reviewsRouter);
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
 
+app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
+
 module.exports = app;
