@@ -77,6 +77,7 @@
         <h3>Reviews</h3>
         {{#each updatedReviews}}
         <p> <b>{{ this.user.name }} said: </b> {{ this.comment }}  </p>
+        <p style="font-size:0.7rem;"> Rating: {{this.stars}}</p>
         {{#if canBeChanged}}
         <a class="nav-link p-0" style="color:white; font-size:0.8rem;" href="/review/edit/{{this._id}}">Edit</a>
         <form action="/review/delete/{{this._id}}" method="POST">
