@@ -31,7 +31,7 @@ module.exports = (app) => {
         maxAge: 1000 * 60 * 60 * 24, // 24h
       },
       store: new MongoStore({
-        mongoUrl: MONGODB_URI,
+        mongoUrl: process.env.MONGODB_URI,
         ttl: 60 * 60 * 24       
       })
     })
