@@ -44,8 +44,8 @@
           <img src="{{restaurant.imageUrl}}" alt="" width="150">
 
             <div class="col d-flex flex-column m-3 m-md-5" >
-              <label style="font-weight:bolder;" for="">Upload new image</label>
-              <input style="font-weight:bolder; color:black;" type="text" name="imageUrl" id="" value="{{restaurant.imageUrl}}"> 
+              <label style="margin-left:35px;" for="">Upload new image</label>
+              <input style="margin-left:35px;" type="file" name="imageUrl" id="" value="{{restaurant.imageUrl}}"> 
             </div>
 
           </div>
@@ -60,7 +60,7 @@
         </form>
         
           <form action="/restaurant/delete/{{restaurant._id}}" method="post">
-            <button style="font-weight:bolder; color:black;" type="submit">Delete this restaurant</button>
+            <button style="font-weight:bolder; color:black; margin-right:290px;" type="submit">Delete this restaurant</button>
           </form>
         </div>
       </div>
@@ -75,8 +75,8 @@
         {{#if restaurant.reviews}}
         <h3 style="font-weight:bolder;" >Reviews:</h3>
   {{#each restaurant.reviews}}
-        <p> <b>{{ this.user.name }} said: </b> {{ this.comment }}  </p>
-        <p>rating: {{this.stars}}</p>
+        <p> <b style="font-size:15px; font-weight:bolder;">{{ this.user.name }} said: </b> {{ this.comment }}  </p>
+        <p style="font-size:11px; font-weight:bolder;">rating: {{this.stars}}</p><hr>
       {{#if canBeChanged}}
         <a href="/review/{{this._id}}">Edit</a>
         <form action="/review/{{this._id}}" method="POST">
@@ -110,21 +110,21 @@
 
 
 
-    <div class="col-12 col-md d-flex align-items-center justify-content-center ">
+    <div class="col-12 col-md-3 d-flex align-items-center justify-content-center ">
 
       <select style="color:black" name="stars" id="stars" required>
-        <option value="" selected disabled hidden>Rating</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>  
-        <option value="4">4</option>
-        <option value="5">5</option>
+        <option style="color:black" value="" selected disabled hidden>Rating</option>
+        <option style="color:black" value="1">1</option>
+        <option style="color:black" value="2">2</option>
+        <option style="color:black" value="3">3</option>  
+        <option style="color:black" value="4">4</option>
+        <option style="color:black" value="5">5</option>
       </select>
 
     </div>
 
     <div class="row">
-      <div class="col col-md-12 d-flex justify-content-center justify-content-md-start p-0">
+      <div class="col col-md-3 d-flex justify-content-center justify-content-md-start p-0">
         <button class="btn  btn-block btn-dark text-uppercase" type="submit">Add</button>
       </div>
     </div>
@@ -143,3 +143,4 @@
     color:white;
   }
 </style>
+
