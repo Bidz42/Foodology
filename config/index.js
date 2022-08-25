@@ -31,7 +31,7 @@ module.exports = (app) => {
         maxAge: 1000 * 60 * 60 * 24, // 24h
       },
       store: new MongoStore({
-        mongoUrl: 'mongodb://localhost/Project-practice',
+        mongoUrl: MONGODB_URI,
         ttl: 60 * 60 * 24       
       })
     })
