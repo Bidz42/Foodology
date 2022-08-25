@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row">
+  <div class="row d-flex flex-column">
       <div class="col my-4">
         <h1>{{ restaurant.name }}</h1>
         <p style="font-size:20px;">This restaurant was posted by: <b> {{ restaurant.owner.name }} </b></p>
@@ -15,10 +15,10 @@
         
         <hr>
         
-        <div class="row my-5">
-          <div class="col-6 d-flex flex-column align-items-center justify-content-center">
-            <h3 style="font-weight:bolder;">Gallery</h3>
-            <img src="{{restaurant.imageUrl}}" alt="" width="500" class="my-5">
+<div class="row my-5">
+          <div class="col d-flex flex-column align-items-center justify-content-center">
+            <h3>Gallery</h3>
+            <img src="{{restaurant.imageUrl}}" alt="" width="300" class="my-5">
           </div>
 
         {{#if isOwner}}
@@ -29,7 +29,7 @@
 
  <div class="row">
       <div class="col">
-        <form action="/restaurant/edit/{{restaurant._id}}/" method="post" id="edit-form" > 
+        <form action="/restaurant/edit/{{restaurant._id}}/" method="post" id="edit-form" enctype="multipart/form-data"> 
          
         <div class="row d-flex align-items-center justify-content-center">
           <div class="col col-md-4 d-flex flex-column">
@@ -41,7 +41,6 @@
           </div>
 
           <div class="col d-flex">
-          <img src="{{restaurant.imageUrl}}" alt="" width="150">
 
             <div class="col d-flex flex-column m-3 m-md-5" >
               <label style="margin-left:35px;" for="">Upload new image</label>
@@ -55,35 +54,37 @@
       
       <div class="row">
         
-        <div class="col d-flex justify-content-between">
+        <div class="col-7 d-flex justify-content-between">
           <button style="font-weight:bolder; color:black;" type="submit">Save changes</button>
         </form>
         
           <form action="/restaurant/delete/{{restaurant._id}}" method="post">
-            <button style="font-weight:bolder; color:black; margin-right:290px;" type="submit">Delete this restaurant</button>
+            <button style="font-weight:bolder; color:black; margin-right:-55px;" type="submit">Delete this restaurant</button>
           </form>
         </div>
       </div>
       
       </div>
 {{/if}}
+  
+   <div class="row mt-4">
+      <div class="col">
+        
+        <hr>
 
-
-  <div class="row mt-5 p-5">
-      <div class="col-7">
         {{!-- if there are reviews, show them, if not, forget about it 🙃 --}}
         {{#if restaurant.reviews}}
-        <h3 style="font-weight:bolder;" >Reviews:</h3>
-  {{#each restaurant.reviews}}
-        <p> <b style="font-size:15px; font-weight:bolder;">{{ this.user.name }} said: </b> {{ this.comment }}  </p>
-        <p style="font-size:11px; font-weight:bolder;">rating: {{this.stars}}</p><hr>
-      {{#if canBeChanged}}
+        <h3>Reviews</h3>
+        {{#each restaurant.reviews}}
+        <p> <b>{{ this.user.name }} said: </b> {{ this.comment }}  </p>
+        {{#if updatedReviews}}
         <a href="/review/{{this._id}}">Edit</a>
         <form action="/review/{{this._id}}" method="POST">
         <button type="submit"> Delete </button>
         </form>
         <hr>
       {{/if}}
+  
   {{/each}}
 {{/if}}
       </div>
@@ -125,7 +126,7 @@
 
     <div class="row">
       <div class="col col-md-3 d-flex justify-content-center justify-content-md-start p-0">
-        <button class="btn  btn-block btn-dark text-uppercase" type="submit">Add</button>
+        <button class="btn btn-dark text-uppercase ml-5" type="submit">Add</button>
       </div>
     </div>
       
@@ -137,6 +138,8 @@
 </div>
 
 </div>
+
+
 
 <style>
   *{

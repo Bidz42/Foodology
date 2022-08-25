@@ -79,7 +79,7 @@ router.get("/:restaurantId", isLoggedIn, (req, res) => {
       })
       const isOwner = _id === restaurant.owner._id.toString() && req.session.hasOwnProperty('currentUser');
       const isNotOwner = !isOwner;
-      res.render('restaurant/restaurant-details', { restaurant, updatedReviews, isNotOwner, isOwner, loggedInNavigation, canBeChanged})
+      res.render('restaurant/restaurant-details', { restaurant, updatedReviews, isNotOwner, isOwner, loggedInNavigation})
     })
     .catch(err => console.log(err))
   });

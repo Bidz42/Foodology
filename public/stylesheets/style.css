@@ -13,10 +13,6 @@ a {
   color: #00b7ff;
 }
 
-h1 {
-  color: 15px;
-}
-
 /* Navigation */ 
 
 .navbar-brand{
@@ -27,10 +23,8 @@ font-weight: bolder;
 .nav-container {
   top: 0;
   position: sticky;
-
   width: 100%;
   z-index: 500;
-
 }
 
 .navbar-nav > li{
@@ -50,12 +44,12 @@ nav{
 /* Gallery of Images */
 
 #title-gallery{
-  margin: 2% 30%;
-  font-size: 50px;
+  font-size: 3rem;
   font-family: 'Aboreto', cursive;
   text-align: center;
   color: white;
   font-weight: bolder;
+  padding-top: 5%;
 }
 
 .card{
@@ -118,6 +112,10 @@ nav{
   margin-bottom: 5%;
 }
 
+.img-thumbnail{
+  width: 30vw;
+  margin: 5%;
+}
 
 
 
