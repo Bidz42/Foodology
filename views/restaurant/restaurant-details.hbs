@@ -68,19 +68,19 @@
 {{/if}}
   
    <div class="row mt-4">
-      <div class="col">
+      <div class="col pb-0">
         
         <hr>
 
         {{!-- if there are reviews, show them, if not, forget about it 🙃 --}}
-        {{#if restaurant.reviews}}
-        <h3>Reviews</h3>
-        {{#each restaurant.reviews}}
-        <p> <b>{{ this.user.name }} said: </b> {{ this.comment }}  </p>
         {{#if updatedReviews}}
-        <a href="/review/{{this._id}}">Edit</a>
-        <form action="/review/{{this._id}}" method="POST">
-        <button type="submit"> Delete </button>
+        <h3>Reviews</h3>
+        {{#each updatedReviews}}
+        <p> <b>{{ this.user.name }} said: </b> {{ this.comment }}  </p>
+        {{#if canBeChanged}}
+        <a class="nav-link p-0" style="color:white; font-size:0.8rem;" href="/review/edit/{{this._id}}">Edit</a>
+        <form action="/review/delete/{{this._id}}" method="POST">
+        <button class="btn btn-dark p-0" style="font-size:0.8rem;" type="submit"> Delete </button>
         </form>
         <hr>
       {{/if}}
@@ -125,7 +125,7 @@
     </div>
 
     <div class="row">
-      <div class="col col-md-3 d-flex justify-content-center justify-content-md-start p-0">
+      <div class="col col-md-3 d-flex justify-content-center  p-0">
         <button class="btn btn-dark text-uppercase ml-5" type="submit">Add</button>
       </div>
     </div>

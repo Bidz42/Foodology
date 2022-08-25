@@ -2,7 +2,7 @@ const router = require("express").Router();
 const Review = require("../models/Review.model");
 const User = require("../models/User.model");
 const Restaurant = require("../models/Restaurant.model");
-const { isLoggedIn, isLoggedOut, isOwner } = require("../middleware/checker");
+const { isLoggedIn, isLoggedOut, isOwner, canBeChanged } = require("../middleware/checker");
 
 
 // post a review on the restaurant page

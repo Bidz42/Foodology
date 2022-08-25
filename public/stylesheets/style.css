@@ -8,11 +8,6 @@ font-family: 'Aboreto', cursive;
 body{
   overflow: unset;
 }
-
-a {
-  color: #00b7ff;
-}
-
 /* Navigation */ 
 
 .navbar-brand{
