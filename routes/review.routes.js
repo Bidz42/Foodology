@@ -32,7 +32,6 @@ router.post("/edit/:reviewId", isOwner, (req, res) => {
     Review.findByIdAndUpdate(reviewId, reviewUpdate, {new: true})
       .then(() => {
         res.redirect('/restaurant/list');
-      
       })
       .catch(err => console.error(err))
 

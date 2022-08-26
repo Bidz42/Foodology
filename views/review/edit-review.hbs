@@ -1,14 +1,29 @@
-<h2>Edit a review!</h2>
 
-<form action="/review/edit/{{reviewId}}" method="POST">
 
-    <label for="comment"> Comment:</label>
-    <input type="text" name="comment" value="{{reviews.comment}}">
-<br>
-    <label for="stars"> Stars:</label>
-    <input type="text" name="stars" value="{{reviews.stars}}">
-<br>
-    <button type="submit">Edit!</button>
-<br>
-</form>
-<a href="/restaurant/list">Back to the restaurants?</a>
+<div class="col-12 col-md-11 d-flex flex-column align-items-center justify-content-center mt-5 pt-5">
+
+    <h2 style="margin-bottom: 50px;">Edit a review!</h2>
+      <form action="/review/edit/{{reviewId}}" method="POST">
+        <textarea style="width:500px; height:200px;" name="comment" id="" maxlength="250" class="form-control mb-3 " required></textarea>
+
+
+    <div class="col-12 col-md-8 pl-0 d-flex align-items-center justify-content-between ">
+
+      <select style="color:black;" name="stars" id="stars" required>
+        <option style="color:black" value="" selected disabled hidden>Rating</option>
+        <option style="color:black" value="1">1</option>
+        <option style="color:black" value="2">2</option>
+        <option style="color:black" value="3">3</option>  
+        <option style="color:black" value="4">4</option>
+        <option style="color:black" value="5">5</option>
+      </select>
+         <button class="btn btn-dark text-uppercase ml-2" type="submit">Add</button>
+    </div>    
+    </div>
+      </form>
+
+<style>
+    *{
+        color:white;
+    }
+</style>
