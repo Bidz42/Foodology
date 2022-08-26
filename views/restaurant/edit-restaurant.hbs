@@ -3,10 +3,10 @@
 <form action="/restaurant/{{restaurants._id}}/edit" method="POST">
 
     <label for="name"> Name:</label>
-    <input type="text" name="name" value="{{restaurants.name}}">
+    <input type="text" name="name" value="{{restaurants.name}}" required>
 <br>
     <label for="cuisine"> Cuisine:</label>
-    <input type="text" name="cuisine" value="{{restaurants.cuisine}}">
+    <input type="text" name="cuisine" value="{{restaurants.cuisine}}" required>
 <br>
     <button type="submit">Edit!</button>
 <br>
