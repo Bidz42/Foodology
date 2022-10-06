@@ -19,7 +19,7 @@ const app = express();
 require("./config")(app);
 
 // default value for title local
-const projectName = "The Hunger Game of Thrones";
+const projectName = "Foodology";
 
 app.locals.appTitle = `${(projectName)}`;
 
