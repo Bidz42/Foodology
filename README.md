@@ -29,6 +29,6 @@
 ## Source
 
 - https://the-foodology.herokuapp.com
-- https://github.com/Bidz42/Project-practice
+- https://github.com/Bidz42/Foodology
 
 
